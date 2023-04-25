@@ -18,7 +18,7 @@ public class App {
         legoList.add(harryPotterModel);
         legoList.add(winnieThePoohModel);
 
-        legoList.stream().filter(ob -> ob.getPrice() < 1_000).forEach(System.out::println);
+        legoList.stream().filter(ob -> ob.getPrice() < 1_500).forEach(System.out::println);
 
 
         /**
@@ -32,9 +32,9 @@ public class App {
         };
 
         for (Lego model : arrayLego) {
-            //var below1000 = model.getPrice()<1000 ? model : null;
+            //var below1000 = model.getPrice()<1500 ? model : null;
             //System.out.println(below1000);
-            if (model.getPrice() < 1000) System.out.println(model);
+            if (model.getPrice() < 1500) System.out.println(model);
         }
 
     }
