@@ -1,15 +1,17 @@
 package com.kwolszczak.antycaptcha;
 
 import com.kwolszczak.BaseTest;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import javax.net.ssl.HttpsURLConnection;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -97,11 +99,35 @@ class TestExercises extends BaseTest {
     @Test
     @Tag("SMOKE")
     @DisplayName("Broken Links")
-    public void test_brokenLinks(){
+    @Disabled("problem with certs on local machine- MAC")
+    public void test_brokenLinks() throws IOException {
+      /*  javax.net.ssl.SSLHandshakeException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+       FAQ:? https://bartlomiejchmielewski.pl/pkix-path-building-failed/*/
+
         List<WebElement> allLinks = driver.findElements(By.tagName("a"));
         allLinks.forEach(e-> System.out.println(e.getText()));
+        for (WebElement w :
+                allLinks) {
+            checkLink(w);
+        }
+    }
 
+    private static List<WebElement> checkLink(WebElement we) throws IOException {
+        List<WebElement> brokenLinks = new ArrayList<>();
+        String link =we.getAttribute("href");
 
+        //System.out.println(link);
+        //String templink2 ="https://antycaptcha.amberteam.pl/stf/3-2-1?seed=4c6258aa-76ec-4686-b7d8-dba455be7fe4";
+        HttpURLConnection connection = (HttpURLConnection) new URL(link).openConnection();
+
+            connection.connect();
+            int responseCode = connection.getResponseCode();
+            if(responseCode >400){
+                System.out.println("Broken link: "+we.getText()+" code: "+responseCode);
+                brokenLinks.add(we);
+            }
+
+        return brokenLinks;
     }
 
     private static String checkSolution(WebDriver driver) throws InterruptedException {
