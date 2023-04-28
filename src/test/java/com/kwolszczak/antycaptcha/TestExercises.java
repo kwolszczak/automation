@@ -2,6 +2,7 @@ package com.kwolszczak.antycaptcha;
 
 import com.kwolszczak.BaseTest;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -107,6 +108,28 @@ class TestExercises extends BaseTest {
         driver.get(newUrl);
         Thread.sleep(2000);
         String result =driver.findElement(By.id("trail")).getText();
+
+        //Assert /then
+        Assertions.assertEquals("OK. Good answer", result);
+
+    }
+
+    @Test
+    @DisplayName("Alerts")
+    public void test_Alert() throws InterruptedException {
+        //Arrange
+        driver.get("https://antycaptcha.amberteam.pl/stf/3-8-1?seed=" + seed);
+        WebElement  alertBtn= driver.findElement(By.id("showAlert"));
+        WebElement alertInp =driver.findElement(By.xpath("//input[@id='alertText']"));
+
+        //Act
+        alertBtn.click();
+        Alert alert = driver.switchTo().alert();
+        String alertText = alert.getText();
+        alert.accept();
+
+        alertInp.sendKeys(alertText);
+        String result = checkSolution(driver);
 
         //Assert /then
         Assertions.assertEquals("OK. Good answer", result);
