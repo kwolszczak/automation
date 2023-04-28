@@ -95,6 +95,23 @@ class TestExercises extends BaseTest {
         //Assert /then
         Assertions.assertEquals("OK. Good answer", result);
     }
+    @Test
+    @DisplayName("Open URLs")
+    public void test_openUrl() throws InterruptedException {
+        //Arrange
+        driver.get("https://antycaptcha.amberteam.pl/stf/3-2-1?seed=" + seed);
+        String  newSeed= driver.findElement(By.xpath("//div//code")).getText().split(":")[1].trim();
+        String newUrl ="http://antycaptcha.amberteam.pl/stf/3-2-1/solution?seed="+newSeed;
+
+        //Act
+        driver.get(newUrl);
+        Thread.sleep(2000);
+        String result =driver.findElement(By.id("trail")).getText();
+
+        //Assert /then
+        Assertions.assertEquals("OK. Good answer", result);
+
+    }
 
     @Test
     @Tag("SMOKE")
