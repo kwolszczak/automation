@@ -117,7 +117,7 @@ class TestExercises extends BaseTest {
         String link =we.getAttribute("href");
 
         //System.out.println(link);
-        //String templink2 ="https://antycaptcha.amberteam.pl/stf/3-2-1?seed=4c6258aa-76ec-4686-b7d8-dba455be7fe4";
+        //String goodLink ="https://www.amberteam.pl/";
         HttpURLConnection connection = (HttpURLConnection) new URL(link).openConnection();
 
             connection.connect();
