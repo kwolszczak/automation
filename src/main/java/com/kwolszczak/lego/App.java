@@ -4,37 +4,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class App {
+
+    private static final int ACCEPTABLE_PRICE = 1500;
     public static void main(String[] args) {
+
         /**
-         * First idea
+         * First option
          *
          * */
         var starWarsModel = new Lego("Star Wars", 100);
         var harryPotterModel = new Lego("Harry Potter", 500);
         var winnieThePoohModel = new Lego("Winnie the Pooh", 2_000);
 
-        List<Lego> legoList = new ArrayList<>();
-        legoList.add(starWarsModel);
-        legoList.add(harryPotterModel);
-        legoList.add(winnieThePoohModel);
+        List<Lego> legoModelPack = new ArrayList<>();
+        legoModelPack.add(starWarsModel);
+        legoModelPack.add(harryPotterModel);
+        legoModelPack.add(winnieThePoohModel);
 
-        legoList.stream().filter(ob -> ob.getPrice() < 1_500).forEach(System.out::println);
-
+        legoModelPack.stream().filter(model -> model.getPrice() < ACCEPTABLE_PRICE).forEach(System.out::println);
 
         /**
-         * Second idea
+         * Second option
          *
          * */
-        Lego[] arrayLego = new Lego[]{
+        Lego[] legoModelCollection = new Lego[]{
                 new Lego("Star Wars", 100),
                 new Lego("Harry Potter", 500),
                 new Lego("Winnie the Pooh", 2_000)
         };
 
-        for (Lego model : arrayLego) {
-            //var below1000 = model.getPrice()<1500 ? model : null;
-            //System.out.println(below1000);
-            if (model.getPrice() < 1500) System.out.println(model);
+        for (Lego model : legoModelCollection) {
+            /*var acceptableModel = model.getPrice()<acceptablePrice ? model : null;
+            System.out.println(acceptablePrice);*/
+            if (model.getPrice() < ACCEPTABLE_PRICE) System.out.println(model);
         }
 
     }
