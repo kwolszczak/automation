@@ -28,8 +28,11 @@ class TestExercises extends BaseTest {
 
         //Act/when
         btn1.click();
-        btn2.click();//Thread.sleep(500);
+        Thread.sleep(100);
         btn2.click();
+        Thread.sleep(100);
+        btn2.click();
+        Thread.sleep(100);
         result = checkSolution(driver);
 
         //Assert /then
@@ -123,6 +126,7 @@ class TestExercises extends BaseTest {
 
         //Act
         alertBtn.click();
+        Thread.sleep(500);
         Alert alert = driver.switchTo().alert();
         String alertText = alert.getText();
         alert.accept();
