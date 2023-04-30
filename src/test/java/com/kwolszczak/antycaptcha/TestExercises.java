@@ -7,7 +7,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -25,17 +24,16 @@ class TestExercises extends BaseTest {
         driver.get("https://antycaptcha.amberteam.pl/exercises/exercise1?seed=" + seed);
         WebElement btn1 = driver.findElement(By.id("btnButton1"));
         WebElement btn2 = driver.findElement(By.id("btnButton2"));
+        String result;
 
         //Act/when
         btn1.click();
         btn2.click();//Thread.sleep(500);
         btn2.click();
-
-        String result = checkSolution(driver);
+        result = checkSolution(driver);
 
         //Assert /then
         Assertions.assertEquals("OK. Good answer", result);
-
     }
 
     @Test
@@ -80,34 +78,35 @@ class TestExercises extends BaseTest {
     public void test_radioButtons() throws InterruptedException {
         //Arrange /given
         driver.get("https://antycaptcha.amberteam.pl/exercises/exercise4?seed=" + seed);
-        WebElement group0element = driver.findElement(By.xpath("//input[@value='v80']"));
-        WebElement group1element = driver.findElement(By.xpath("//input[@value='v21']"));
-        WebElement group2element = driver.findElement(By.xpath("//input[@value='v02']"));
-        WebElement group3element = driver.findElement(By.xpath("//input[@value='v43']"));
+        WebElement group0_element = driver.findElement(By.xpath("//input[@value='v80']"));
+        WebElement group1_element = driver.findElement(By.xpath("//input[@value='v21']"));
+        WebElement group2_element = driver.findElement(By.xpath("//input[@value='v02']"));
+        WebElement group3_element = driver.findElement(By.xpath("//input[@value='v43']"));
 
         //Act/when
-        group0element.click();
-        group1element.click();
-        group2element.click();
-        group3element.click();
+        group0_element.click();
+        group1_element.click();
+        group2_element.click();
+        group3_element.click();
 
         String result = checkSolution(driver);
 
         //Assert /then
         Assertions.assertEquals("OK. Good answer", result);
     }
+
     @Test
     @DisplayName("Open URLs")
     public void test_openUrl() throws InterruptedException {
         //Arrange
         driver.get("https://antycaptcha.amberteam.pl/stf/3-2-1?seed=" + seed);
-        String  newSeed= driver.findElement(By.xpath("//div//code")).getText().split(":")[1].trim();
-        String newUrl ="http://antycaptcha.amberteam.pl/stf/3-2-1/solution?seed="+newSeed;
+        String newSeed = driver.findElement(By.xpath("//div//code")).getText().split(":")[1].trim();
+        String newUrl = "http://antycaptcha.amberteam.pl/stf/3-2-1/solution?seed=" + newSeed;
 
         //Act
         driver.get(newUrl);
         Thread.sleep(2000);
-        String result =driver.findElement(By.id("trail")).getText();
+        String result = driver.findElement(By.id("trail")).getText();
 
         //Assert /then
         Assertions.assertEquals("OK. Good answer", result);
@@ -119,8 +118,8 @@ class TestExercises extends BaseTest {
     public void test_Alert() throws InterruptedException {
         //Arrange
         driver.get("https://antycaptcha.amberteam.pl/stf/3-8-1?seed=" + seed);
-        WebElement  alertBtn= driver.findElement(By.id("showAlert"));
-        WebElement alertInp =driver.findElement(By.xpath("//input[@id='alertText']"));
+        WebElement alertBtn = driver.findElement(By.id("showAlert"));
+        WebElement alertInp = driver.findElement(By.xpath("//input[@id='alertText']"));
 
         //Act
         alertBtn.click();
@@ -145,35 +144,40 @@ class TestExercises extends BaseTest {
        FAQ:? https://bartlomiejchmielewski.pl/pkix-path-building-failed/*/
 
         List<WebElement> allLinks = driver.findElements(By.tagName("a"));
-        allLinks.forEach(e-> System.out.println(e.getText()));
-        for (WebElement w :
+        allLinks.forEach(link -> System.out.println(link.getText()));
+        for (WebElement link :
                 allLinks) {
-            checkLink(w);
+            checkLink(link);
         }
     }
 
-    private static List<WebElement> checkLink(WebElement we) throws IOException {
+    private static List<WebElement> checkLink(WebElement webElement) throws IOException {
         List<WebElement> brokenLinks = new ArrayList<>();
-        String link =we.getAttribute("href");
+        String link = webElement.getAttribute("href");
 
-        //System.out.println(link);
-        //String goodLink ="https://www.amberteam.pl/";
+     /*   System.out.println(link);
+        String goodLink ="https://www.amberteam.pl/";
+        */
         HttpURLConnection connection = (HttpURLConnection) new URL(link).openConnection();
 
-            connection.connect();
-            int responseCode = connection.getResponseCode();
-            if(responseCode >400){
-                System.out.println("Broken link: "+we.getText()+" code: "+responseCode);
-                brokenLinks.add(we);
-            }
+        connection.connect();
+        int responseCode = connection.getResponseCode();
+        if (responseCode > 400) {
+            System.out.println("Broken link: " + webElement.getText() + " code: " + responseCode);
+            brokenLinks.add(webElement);
+        }
 
         return brokenLinks;
     }
 
     private static String checkSolution(WebDriver driver) throws InterruptedException {
+
         Thread.sleep(500);
         driver.findElement(By.cssSelector("button#solution")).click();
         Thread.sleep(500);
-        return driver.findElement(By.id("trail")).getText();
+
+        String responseOutput = driver.findElement(By.id("trail")).getText();
+
+        return responseOutput;
     }
 }
