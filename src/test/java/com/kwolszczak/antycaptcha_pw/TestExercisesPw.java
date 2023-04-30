@@ -1,20 +1,14 @@
 package com.kwolszczak.antycaptcha_pw;
 
 import com.kwolszczak.BaseTestPW;
-import com.microsoft.playwright.*;
-import com.microsoft.playwright.options.LoadState;
-import com.microsoft.playwright.options.WaitUntilState;
-import org.junit.jupiter.api.*;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
+import com.microsoft.playwright.Page;
+import org.testng.annotations.Test;
 
-import java.nio.file.Paths;
+import static org.testng.Assert.*;
 
+@Deprecated
 class TestExercisesPw extends BaseTestPW {
     @Test
-    @DisplayName("Alerts")
     public void test_Alert() throws InterruptedException {
         //Arrange
         page.navigate("https://antycaptcha.amberteam.pl/stf/3-8-1?seed=" + seed);
@@ -30,11 +24,10 @@ class TestExercisesPw extends BaseTestPW {
         page.click(alertBtn);
         Thread.sleep(200);
         //Assert /then
-        Assertions.assertEquals("OK. Good answer", checkResult(page));
+        assertEquals("OK. Good answer", checkResult(page));
     }
 
     @Test
-    @DisplayName("Open URLs")
     public void test_openUrl() throws InterruptedException {
         //Arrange
         page.navigate("https://antycaptcha.amberteam.pl/stf/3-2-1?seed=" + seed);
@@ -45,7 +38,7 @@ class TestExercisesPw extends BaseTestPW {
         page.navigate(newUrl);
 
         //Assert /then
-        Assertions.assertEquals("OK. Good answer", checkResult(page,true));
+        assertEquals("OK. Good answer", checkResult(page,true));
 
     }
     @Test
@@ -70,11 +63,10 @@ class TestExercisesPw extends BaseTestPW {
 
 
 
-        Assertions.assertEquals("OK. Good answer", checkResult(page));
+        assertEquals("OK. Good answer", checkResult(page));
     }
 
     @Test
-    @DisplayName("Radion buttons")
     public void test_radioButtons() throws InterruptedException {
         //Arrange /given
         page.navigate("https://antycaptcha.amberteam.pl/exercises/exercise4?seed=" + seed);
@@ -91,11 +83,10 @@ class TestExercisesPw extends BaseTestPW {
         page.click(group3_element);
 
         //Assert /then
-        Assertions.assertEquals("OK. Good answer", checkResult(page));
+        assertEquals("OK. Good answer", checkResult(page));
     }
 
     @Test
-    @DisplayName("Edit box")
     public void test_editbox() throws InterruptedException {
         //Arrange /given
         page.navigate("https://antycaptcha.amberteam.pl/exercises/exercise2?seed=" + seed);
@@ -107,7 +98,7 @@ class TestExercisesPw extends BaseTestPW {
         page.click(btn1);
 
         //Assert /then
-        Assertions.assertEquals("OK. Good answer", checkResult(page));
+        assertEquals("OK. Good answer", checkResult(page));
     }
     @Test
     public void test_dropdownList() throws InterruptedException {
@@ -118,7 +109,7 @@ class TestExercisesPw extends BaseTestPW {
         page.locator("select#s13").selectOption("Amberlite Firemist");
 
         //Assert
-        Assertions.assertEquals("OK. Good answer", checkResult(page));
+        assertEquals("OK. Good answer", checkResult(page));
     }
     private static String checkResult(Page page) throws InterruptedException {
         String resultBtn = "//button[@id='solution']";
