@@ -1,4 +1,4 @@
-package com.kwolszczak;
+package com.kwolszczak.antycaptcha.selenium;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,14 +14,14 @@ public class BaseTest {
     @BeforeEach
     void setUp() {
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+     //   driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.manage().window().maximize();
         driver.get("https://antycaptcha.amberteam.pl");
     }
 
     @AfterEach
     void tearDown() {
-        driver.close();
+        driver.quit();
     }
 
 }

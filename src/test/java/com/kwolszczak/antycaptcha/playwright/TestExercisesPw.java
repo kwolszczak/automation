@@ -1,6 +1,6 @@
-package com.kwolszczak.antycaptcha_pw;
+package com.kwolszczak.antycaptcha.playwright;
 
-import com.kwolszczak.BaseTestPW;
+import com.kwolszczak.antycaptcha.playwright.BaseTestPW;
 import com.microsoft.playwright.Page;
 import org.testng.annotations.Test;
 

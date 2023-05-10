@@ -1,6 +1,5 @@
-package com.kwolszczak.antycaptcha;
+package com.kwolszczak.antycaptcha.selenium;
 
-import com.kwolszczak.BaseTest;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;

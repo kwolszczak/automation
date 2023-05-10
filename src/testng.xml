@@ -3,7 +3,7 @@
 <suite name="Test Suite">
     <test thread-count="5" name="Test Regresion">
         <classes>
-            <class name="com.kwolszczak.antycaptcha_pw.TestExcersisesPWtng">
+            <class name="com.kwolszczak.antycaptcha.playwright.TestExcersisesPWtng">
                 <methods>
                     <exclude name="test_openUrl"></exclude>
                     <exclude name="old.*"></exclude>

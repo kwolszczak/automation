@@ -1,4 +1,4 @@
-package com.kwolszczak;
+package com.kwolszczak.antycaptcha.playwright;
 
 import com.microsoft.playwright.*;
 import org.testng.annotations.*;
