@@ -20,6 +20,9 @@ class TestExercises extends BaseTest {
     @Test
     @DisplayName("Three Buttons")
     public void test_threeButtons() throws InterruptedException {
+        System.out.println("FirstParallelUnitTest second() start => " + Thread.currentThread().getName());
+        Thread.sleep(500);
+        System.out.println("FirstParallelUnitTest second() end => " + Thread.currentThread().getName());
         //Arrange /given
         driver.get("https://antycaptcha.amberteam.pl/exercises/exercise1?seed=" + seed);
         WebElement btn1 = driver.findElement(By.id("btnButton1"));
@@ -42,6 +45,9 @@ class TestExercises extends BaseTest {
     @Test
     @DisplayName("Edit box")
     public void test_editbox() throws InterruptedException {
+        System.out.println("FirstParallelUnitTest second() start => " + Thread.currentThread().getName());
+        Thread.sleep(500);
+        System.out.println("FirstParallelUnitTest second() end => " + Thread.currentThread().getName());
         //Arrange /given
         driver.get("https://antycaptcha.amberteam.pl/exercises/exercise2?seed=" + seed);
         WebElement inp = driver.findElement(By.id("t14"));
@@ -61,6 +67,9 @@ class TestExercises extends BaseTest {
     @Test
     @DisplayName("Drop down list")
     public void test_dropdownList() throws InterruptedException {
+        System.out.println("FirstParallelUnitTest second() start => " + Thread.currentThread().getName());
+        Thread.sleep(500);
+        System.out.println("FirstParallelUnitTest second() end => " + Thread.currentThread().getName());
         //Arrange /given
         driver.get("https://antycaptcha.amberteam.pl/exercises/exercise3?seed=" + seed);
         WebElement option = driver.findElement(By.id("s13"));
@@ -79,6 +88,9 @@ class TestExercises extends BaseTest {
     @Test
     @DisplayName("Radion buttons")
     public void test_radioButtons() throws InterruptedException {
+        System.out.println("FirstParallelUnitTest second() start => " + Thread.currentThread().getName());
+        Thread.sleep(500);
+        System.out.println("FirstParallelUnitTest second() end => " + Thread.currentThread().getName());
         //Arrange /given
         driver.get("https://antycaptcha.amberteam.pl/exercises/exercise4?seed=" + seed);
         WebElement group0_element = driver.findElement(By.xpath("//input[@value='v80']"));
@@ -101,6 +113,9 @@ class TestExercises extends BaseTest {
     @Test
     @DisplayName("Open URLs")
     public void test_openUrl() throws InterruptedException {
+        System.out.println("FirstParallelUnitTest second() start => " + Thread.currentThread().getName());
+        Thread.sleep(500);
+        System.out.println("FirstParallelUnitTest second() end => " + Thread.currentThread().getName());
         //Arrange
         driver.get("https://antycaptcha.amberteam.pl/stf/3-2-1?seed=" + seed);
         String newSeed = driver.findElement(By.xpath("//div//code")).getText().split(":")[1].trim();
@@ -119,6 +134,9 @@ class TestExercises extends BaseTest {
     @Test
     @DisplayName("Alerts")
     public void test_Alert() throws InterruptedException {
+        System.out.println("FirstParallelUnitTest second() start => " + Thread.currentThread().getName());
+        Thread.sleep(500);
+        System.out.println("FirstParallelUnitTest second() end => " + Thread.currentThread().getName());
         //Arrange
         driver.get("https://antycaptcha.amberteam.pl/stf/3-8-1?seed=" + seed);
         WebElement alertBtn = driver.findElement(By.id("showAlert"));

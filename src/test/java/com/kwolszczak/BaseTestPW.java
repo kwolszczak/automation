@@ -12,11 +12,11 @@ public class BaseTestPW {
     private static Browser browser;
 
     @BeforeTest
-      public void init(){
+      public void init() throws InterruptedException {
         server = Playwright.create();
          browser = server.chromium().launch(new BrowserType.LaunchOptions()
-                .setHeadless(false)
-                .setChannel("chrome"));
+                .setHeadless(false));
+               // .setChannel("chrome"));
     }
 
     @BeforeMethod

@@ -6,6 +6,7 @@
             <class name="com.kwolszczak.antycaptcha_pw.TestExcersisesPWtng">
                 <methods>
                     <exclude name="test_openUrl"></exclude>
+                    <exclude name="old.*"></exclude>
                 </methods>
             </class>
         </classes>
