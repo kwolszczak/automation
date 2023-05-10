@@ -1,5 +1,6 @@
 package com.kwolszczak.antycaptcha.selenium.pages;
 
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,7 +29,7 @@ public class ThreeButtonsPage {
     @FindBy(id="trail" )
     WebElement actualOutcome;
 
-    @FindBy(css="button#solution" )
+    @FindBy(id="solution" )
     WebElement checkSolutionBtn;
 
     public ThreeButtonsPage(WebDriver driver){
@@ -40,8 +41,6 @@ public class ThreeButtonsPage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
         for (WebElement button: stepsList) {
-
-            System.out.println(button.getText());
             if (button.getText().equalsIgnoreCase("B1")) {
                 wait.until(ExpectedConditions.elementToBeClickable(btn1));
                 btn1.click();
@@ -54,9 +53,25 @@ public class ThreeButtonsPage {
         return this;
     }
 
+    public boolean checkSolution() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        int initialHashCode = actualOutcome.getText().hashCode();
+
+        checkSolutionBtn.click();
+
+         wait.until( webDriver -> {
+             int currentHashCode = actualOutcome.getText().hashCode();
+             return currentHashCode != initialHashCode;
+         });
+
+        return actualOutcome.getText().equalsIgnoreCase("OK. Good answer");
+    }
+
     public boolean isActualOutcomeEqualExpectedOutcome(){
         String expectedOutcomeTXT =expectedOutcome.getText().split(":")[1].trim();
         String actualOutcomeTXT = actualOutcome.getText();
+
         return expectedOutcomeTXT.equalsIgnoreCase(actualOutcomeTXT);
     }
+
 }
