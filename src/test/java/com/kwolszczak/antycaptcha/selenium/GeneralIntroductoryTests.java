@@ -17,11 +17,12 @@ import org.testng.asserts.SoftAssert;
                .openExercise1Page()
                .executeSteps();
 
-       boolean isActualOutcomeEqualExpectedOutcome = threeButtonsPage.isActualOutcomeEqualExpectedOutcome();
-       softAssert.assertTrue(isActualOutcomeEqualExpectedOutcome,"Actual Outcome is different to Expected");
+       String currentOutcome = threeButtonsPage.actualOutcomeTXT();
+       String expectedOutcome = threeButtonsPage.expectedOutcomeTXT();
+       softAssert.assertEquals(currentOutcome,expectedOutcome);
 
-        boolean areActionsCorrect = threeButtonsPage.checkSolution();
-        softAssert.assertTrue(areActionsCorrect,"NOT OK. After solution checked");
+        String currentSolutionAnswer = threeButtonsPage.checkSolution();
+        softAssert.assertEquals(currentSolutionAnswer,"OK. Good answer");
 
         softAssert.assertAll();
     }

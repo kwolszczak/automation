@@ -18,60 +18,72 @@ public class ThreeButtonsPage {
     List<WebElement> stepsList;
 
     @FindBy(id = "btnButton1")
-    WebElement btn1 ;
+    WebElement btn1;
 
-    @FindBy(id ="btnButton2" )
+    @FindBy(id = "btnButton2")
     WebElement btn2;
 
-    @FindBy(xpath="//td[contains(text(),'Trail set')]" )
+    @FindBy(xpath = "//td[contains(text(),'Trail set')]")
     WebElement expectedOutcome;
 
-    @FindBy(id="trail" )
+    @FindBy(id = "trail")
     WebElement actualOutcome;
 
-    @FindBy(id="solution" )
+    @FindBy(id = "solution")
     WebElement checkSolutionBtn;
 
-    public ThreeButtonsPage(WebDriver driver){
+    public ThreeButtonsPage(WebDriver driver) {
         this.driver = driver;
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
     }
 
-    public ThreeButtonsPage executeSteps(){
+    public ThreeButtonsPage executeSteps() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
-        for (WebElement button: stepsList) {
-            if (button.getText().equalsIgnoreCase("B1")) {
-                wait.until(ExpectedConditions.elementToBeClickable(btn1));
-                btn1.click();
-            } else if (button.getText().equalsIgnoreCase("B2")) {
-                wait.until(ExpectedConditions.elementToBeClickable(btn2));
-                btn2.click();
+        for (WebElement button : stepsList) {
+            if (button.getText().equalsIgnoreCase(btn1.getText())) {
+                clickAndWait(btn1);
+            } else if (button.getText().equalsIgnoreCase(btn2.getText())) {
+                clickAndWait(btn2);
             }
-
         }
         return this;
     }
 
-    public boolean checkSolution() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        int initialHashCode = actualOutcome.getText().hashCode();
-
-        checkSolutionBtn.click();
-
-         wait.until( webDriver -> {
-             int currentHashCode = actualOutcome.getText().hashCode();
-             return currentHashCode != initialHashCode;
-         });
-
-        return actualOutcome.getText().equalsIgnoreCase("OK. Good answer");
+    public String checkSolution() {
+        clickAndWait(checkSolutionBtn);
+        return actualOutcomeTXT();
     }
 
-    public boolean isActualOutcomeEqualExpectedOutcome(){
-        String expectedOutcomeTXT =expectedOutcome.getText().split(":")[1].trim();
+    public String actualOutcomeTXT() {
         String actualOutcomeTXT = actualOutcome.getText();
+        return actualOutcomeTXT;
+    }
+    public String expectedOutcomeTXT(){
+        String expectedOutcomeTXT = expectedOutcome.getText().split(":")[1].trim();
+        return expectedOutcomeTXT;
+    }
 
-        return expectedOutcomeTXT.equalsIgnoreCase(actualOutcomeTXT);
+    /*
+    * output [actualOutcome] doesn't return current value immediately
+    * it takes some time after clicking button to get actual output.
+    *
+    * Method prevent flaky tests
+    * */
+    public void clickAndWait(WebElement button){
+        int initialHashCode = actualOutcome.getText().hashCode();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+
+       // System.out.println("LOG: initial hashcode: "+initialHashCode+" ...For Button: "+button.getText());
+
+        button.click();
+        wait.until(webDriver -> {
+            int currentHashCode = actualOutcome.getText().hashCode();
+           // System.out.println("LOG:Waiting for change. Current hashcode."+currentHashCode);
+            return currentHashCode != initialHashCode;
+        });
+
+
     }
 
 }
