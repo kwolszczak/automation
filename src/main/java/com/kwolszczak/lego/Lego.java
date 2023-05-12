@@ -21,4 +21,5 @@ public class Lego {
     public String toString(){
         return "Lego set:"+name+". Price: "+price+" PLN"+". Number of pieces: "+numberOfPieces;
     }
+
 }
