@@ -1,29 +1,35 @@
 package com.kwolszczak.antycaptcha.selenium;
 
-import com.kwolszczak.antycaptcha.selenium.pages.LandingPage;
-import com.kwolszczak.antycaptcha.selenium.pages.ThreeButtonsPage;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.testng.asserts.SoftAssert;
+import com.kwolszczak.antycaptcha.selenium.pages.*;
+import org.junit.jupiter.api.*;
 
- class GeneralIntroductoryTests extends BaseTest {
+class GeneralIntroductoryTests extends BaseTest {
+
     @Test
-    @DisplayName("Three Buttons")
-    public void test_threeButtons() throws InterruptedException {
-        SoftAssert softAssert = new SoftAssert();
+    @DisplayName("Exercise 1 -Three Buttons")
+    void test_threeButtons() {
 
-       ThreeButtonsPage threeButtonsPage = new LandingPage(driver)
-               .openExercise1Page()
+        ThreeButtonsPage page = new LandingPage(driver)
+               .openThreeButtonsPage()
                .executeSteps();
 
-       String currentOutcome = threeButtonsPage.actualOutcomeTXT();
-       String expectedOutcome = threeButtonsPage.expectedOutcomeTXT();
-       softAssert.assertEquals(currentOutcome,expectedOutcome);
+        AssertSupport.verifyOutcome(page);
 
-        String currentSolutionAnswer = threeButtonsPage.checkSolution();
-        softAssert.assertEquals(currentSolutionAnswer,"OK. Good answer");
+        page.clickCheckSolution();
+        AssertSupport.verifySolution(page);
+    }
 
-        softAssert.assertAll();
+    @Test
+    @DisplayName("Exercise 4 - Radio Buttons")
+    void test_radioButtons()  {
+
+        RadioButtonsPage page =new LandingPage(driver)
+                .openRadioButtonsPage()
+                .executeSteps();
+
+        AssertSupport.verifyOutcome(page);
+
+        page.clickCheckSolution();
+        AssertSupport.verifySolution(page);
     }
 }
