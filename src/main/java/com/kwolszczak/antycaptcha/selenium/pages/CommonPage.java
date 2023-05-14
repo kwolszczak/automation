@@ -1,5 +1,6 @@
 package com.kwolszczak.antycaptcha.selenium.pages;
 
+import com.kwolszczak.antycaptcha.selenium.support.PageSupport;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,6 +23,7 @@ public class CommonPage {
     public CommonPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        PageSupport.initPageSupport(driver);
     }
 
     public String clickCheckSolution() {
@@ -34,7 +36,7 @@ public class CommonPage {
     }
 
     public String getExpectedOutcome(){
-        return expectedOutcome.getText().split(":")[1].trim();
+        return expectedOutcome.getText().split("Trail set to:")[1].trim();
     }
 
     /*

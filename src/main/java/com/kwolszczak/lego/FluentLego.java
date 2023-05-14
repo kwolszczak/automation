@@ -11,7 +11,7 @@ public class FluentLego {
     private boolean unique;
     private List<String> pieces;
 
-    //privet constructor to prevent creating instance of FluentLego (new FluentLego() -not possible)
+    //private constructor to prevent creating instance of FluentLego (new FluentLego() -not possible)
     private FluentLego(){
     }
 

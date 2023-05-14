@@ -1,6 +1,5 @@
 package com.kwolszczak.lego;
 
-import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class FluentApp {
