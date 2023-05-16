@@ -3,6 +3,7 @@ package com.kwolszczak.antycaptcha.selenium;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 
 public class BaseTest {
@@ -11,8 +12,11 @@ public class BaseTest {
 
     @BeforeEach
     void setUp() {
-        driver = new ChromeDriver();
+        ChromeOptions option = new ChromeOptions();
+        option.addArguments("headless");
+        driver = new ChromeDriver(option);
         driver.manage().window().maximize();
+
     }
 
     @AfterEach

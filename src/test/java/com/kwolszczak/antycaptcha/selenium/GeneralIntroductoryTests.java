@@ -35,7 +35,7 @@ class GeneralIntroductoryTests extends BaseTest {
 
     @Test
     @DisplayName("Exercise 3 - Dropdown List")
-    void test_dropDownList()  {
+    void test_dropDownList() throws InterruptedException {
 
         DropDownListPage page =new LandingPage(driver)
                 .dropDownListPage()
